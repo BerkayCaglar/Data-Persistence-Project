@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+using System.IO;
 
 public class MainManager : MonoBehaviour
 {
+    [System.Serializable]
+    class SaveData
+    {
+        public string playerName;
+        public int score;
+    }
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text textName;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -18,10 +27,12 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
+    public bool entered=false;
     
     // Start is called before the first frame update
     void Start()
     {
+        
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -56,16 +67,17 @@ public class MainManager : MonoBehaviour
         else if (m_GameOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            {   
+                SceneManager.LoadScene(2);
             }
         }
     }
 
-    void AddPoint(int point)
+    public void AddPoint(int point)
     {
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
+ 
     }
 
     public void GameOver()
@@ -73,4 +85,5 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
+
 }
