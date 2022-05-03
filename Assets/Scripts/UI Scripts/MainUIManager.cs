@@ -8,8 +8,8 @@ using TMPro;
 #endif
 public class MainUIManager : MonoBehaviour
 {
-    public static MainUIManager Ins;
-    public TMP_Text nameText;
+    public static MainUIManager Instance;
+    public TextMeshProUGUI playerName;
     public GameObject alertText;
     public void BestScores()
     {
@@ -18,7 +18,7 @@ public class MainUIManager : MonoBehaviour
 
     public void StartGame()
     {
-        if(nameText.text.Length <= 1)
+        if(playerName.text.Length <= 1)
         {
             alertText.SetActive(true);
         }
@@ -26,7 +26,7 @@ public class MainUIManager : MonoBehaviour
         {
             SceneManager.LoadScene(2);
         }
-           
+        
     }
 
     public void QuitGame()
@@ -38,11 +38,11 @@ public class MainUIManager : MonoBehaviour
         #endif
     }
     private void Awake() {
-        if(Ins != null)
+        if(Instance != null)
         {
             Destroy(gameObject);
         }
-        Ins = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 }

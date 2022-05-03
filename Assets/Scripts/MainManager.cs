@@ -9,22 +9,20 @@ using System.IO;
 public class MainManager : MonoBehaviour
 {
     [System.Serializable]
-    class SaveData
+    public class dataSave
     {
         public string playerName;
         public int score;
     }
+    dataSave data = new dataSave();
     public Brick BrickPrefab;
     public int LineCount = 6;
     public Rigidbody Ball;
-
     public Text ScoreText;
-    public Text textName;
+    public Text playerNameText;
     public GameObject GameOverText;
-    
     private bool m_Started = false;
     private int m_Points;
-    
     private bool m_GameOver = false;
 
     public bool entered=false;
@@ -32,7 +30,7 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        readJson();
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -77,13 +75,35 @@ public class MainManager : MonoBehaviour
     {
         m_Points += point;
         ScoreText.text = $"Score : {m_Points}";
- 
     }
 
     public void GameOver()
     {
+        data.score = m_Points;
+        writeToJSON();
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
+    public void writeToJSON()
+    {
+        string path = "C:/Users/user/Desktop/saveFile.json";
+        string json=JsonUtility.ToJson(data);
+        File.WriteAllText(path,json);
+    }
 
+    public void readJson()
+    {
+        string path = "C:/Users/user/Desktop/saveFile.json";
+        if(File.Exists(path))
+        {
+            string jsonFile = File.ReadAllText(path);
+            data.playerName=JsonUtility.FromJson<dataSave>(jsonFile).playerName;
+            data.score=JsonUtility.FromJson<dataSave>(jsonFile).score;
+        }
+        else
+        { // Değişkenlerin static olayını bir dene
+            data.playerName = MainUIManager.Instance.playerName.text;
+        }
+        playerNameText.text = data.playerName + ":" +data.score;
+    }
 }

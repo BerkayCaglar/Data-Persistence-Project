@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 1572937004}
   - component: {fileID: 1572937003}
   m_Layer: 0
-  m_Name: Main Manager
+  m_Name: Main UI Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb3bb66e0aefed47b7732a30984e85f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: {fileID: 2103036368}
+  playerName: {fileID: 2103036368}
   alertText: {fileID: 286611276}
 --- !u!4 &1572937004
 Transform:
